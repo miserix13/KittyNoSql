@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-
-namespace NoSqlWrapper.Data
+﻿namespace NoSqlWrapper.Data
 {
     public class NoSQLDropCreateSeedAlways 
             : DropCreateDatabaseAlways<NoSQLContext>

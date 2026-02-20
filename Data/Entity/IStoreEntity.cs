@@ -1,5 +1,4 @@
-﻿using System;
-namespace NoSqlWrapper.Data.Entity
+﻿namespace NoSqlWrapper.Data.Entity
 {
     public interface IStoreEntity
     {

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NoSqlWrapper.Conventions;
+﻿using NoSqlWrapper.Conventions;
 using NoSqlWrapper.Serialization;
 using System.Reflection;
 using System.Linq.Expressions;

@@ -1,7 +1,4 @@
-﻿using System;
-
-
-namespace NoSqlWrapper.Versioning
+﻿namespace NoSqlWrapper.Versioning
 {
     public interface ITypeVersioner
     {
