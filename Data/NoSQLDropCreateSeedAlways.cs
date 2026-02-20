@@ -1,11 +1,9 @@
 ﻿namespace NoSqlWrapper.Data
 {
     public class NoSQLDropCreateSeedAlways 
-            : DropCreateDatabaseAlways<NoSQLContext>
     {
-        protected override void Seed(NoSQLContext context)
+        public void Seed(NoSQLContext context)
         {
-            base.Seed(context); // empty method call
             NoSQLSeedData.SeedDemoData(context);
         }
     }

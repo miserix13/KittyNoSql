@@ -31,12 +31,12 @@
 
         public Guid SourceTypeVersionId
         {
-            get { throw new NotImplementedException(); }
+            get { return this.Decoratee.SourceTypeVersionId; }
         }
 
         public Guid TargetTypeVersionId
         {
-            get { throw new NotImplementedException(); }
+            get { return this.Decoratee.TargetTypeVersionId; }
         }
 
         public string Apply(string source)

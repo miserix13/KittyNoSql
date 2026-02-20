@@ -12,7 +12,7 @@ namespace NoSqlWrapper.Data
         }
         public static void AddStore(this NoSQLContext context,IStoreEntity storeEntity)
         {
-            var item = context.Store.Create();
+            var item = new StoreEntity();
             context.Store.Add(item);
 
             item.StoreId = storeEntity.StoreId;
@@ -38,7 +38,7 @@ namespace NoSqlWrapper.Data
         }
         public static void AddStoreArchive(this NoSQLContext context, IStoreArchiveEntity storeEntity)
         {
-            var item = context.StoreArchive.Create();
+            var item = new StoreArchiveEntity();
             context.StoreArchive.Add(item);
 
             item.LastUpdated = storeEntity.LastUpdated;
@@ -70,7 +70,7 @@ namespace NoSqlWrapper.Data
         }
         public static void AddTypeVersion(this NoSQLContext context, ITypeVersionEntity typeVersionEntity)
         {
-            var item = context.TypeVersion.Create();
+            var item = new TypeVersionEntity();
             context.TypeVersion.Add(item);
 
             item.AssemblyName = item.AssemblyName;
@@ -100,7 +100,7 @@ namespace NoSqlWrapper.Data
         public static ITypeVersionEntity TryFindTypeVersion(this NoSQLContext context,String assemblyName, String typeName, String signature)
         {
             Func<TypeVersionEntity,Boolean> delegateSearch = 
-                a => a.TypeName == typeName && a.AssemblyName == a.AssemblyName && a.TypeSignature == signature;
+                a => a.TypeName == typeName && a.AssemblyName == assemblyName && a.TypeSignature == signature;
 
             //search local first...
             var item = context.TypeVersion.Local.Where(delegateSearch).FirstOrDefault();

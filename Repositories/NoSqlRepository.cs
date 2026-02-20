@@ -2,6 +2,7 @@
 using NoSqlWrapper.Conventions;
 using NoSqlWrapper.Data;
 using NoSqlWrapper.Data.Entity;
+using NoSqlWrapper.Migration;
 using NoSqlWrapper.Serialization;
 using NoSqlWrapper.Versioning;
 
@@ -167,15 +168,29 @@ namespace NoSqlWrapper.Repositories
 
         private String ApplyMigrations<T>(IStoreEntity storeEntity)
         {
-            //short circuit if migrations are disabled??
-
             //find the type version for what we have loaded
             var typeVersion = this.ResolveTypeVersion<T>();
 
             //version mismatch, apply a migration strategy (use decorator???)
             if (typeVersion.TypeVersionId != storeEntity.TypeVersionId)
             {
-                //TODO
+                var migrationPath = Migrations.Instance.FindMigrationPath(storeEntity.TypeVersionId, typeVersion.TypeVersionId);
+
+                if ((migrationPath == null) || (migrationPath.Length == 0))
+                {
+                    if (this.Options.StrictDeserializationEnabled)
+                    {
+                        throw new Exceptions.NoSqlWrapperException(String.Format(
+                            "No migration path found from source type version [{0}] to target type version [{1}]",
+                            storeEntity.TypeVersionId, typeVersion.TypeVersionId));
+                    }
+
+                    return storeEntity.Value;
+                }
+
+                var migratedValue = storeEntity.Value;
+                migrationPath.ForEach(migration => migratedValue = migration.Apply(migratedValue));
+                return migratedValue;
             }
 
             //for now just return this JSON

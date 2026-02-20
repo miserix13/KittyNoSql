@@ -1,4 +1,6 @@
-﻿namespace NoSqlWrapper.Serialization
+﻿using Newtonsoft.Json;
+
+namespace NoSqlWrapper.Serialization
 {
 
     internal class JsonSerializer<T> : ISerializer<T>
